@@ -8,6 +8,8 @@ Still in development, but usable :-)
 
 ## Plugins
 
+* check_vcsa_cpu.pl: CPU Usage
+* check_vcsa_mem.pl: Memory Usage
 * check_vcsa_services.pl: Services Running State
 
 # Examples
