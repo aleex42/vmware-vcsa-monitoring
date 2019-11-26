@@ -11,10 +11,13 @@ Still in development, but usable :-)
 * check_vcsa_cpu.pl: CPU Usage
 * check_vcsa_mem.pl: Memory Usage
 * check_vcsa_services.pl: Services Running State
+* check_vcsa_storage.pl: Storage Usage
 
 # Examples
 
-in progess
+![Nagios](https://github.com/aleex42/vmware-vcsa-monitoring/blob/master/examples/nagios.png)
+
+See examples/ subfolder for some nagios example configurations.
 
 # Contact / Author
 
