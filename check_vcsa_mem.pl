@@ -4,7 +4,7 @@ $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME}=0;
 
 # nagios: -epn
 # --
-# check_vcsa_cpu - Check VCSA CPU Usage
+# check_vcsa_mem - Check VCSA Memory Usage
 # Copyright (C) 2019 Alexander Krogloth, git@krogloth.de
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
@@ -56,10 +56,10 @@ my $content = $response->decoded_content;
 
 my $token = decode_json($content)->{value};
 
-my $startTime = strftime "%Y-%m-%dT%H:%M:%S.000Z", gmtime ( time - 200);
+my $startTime = strftime "%Y-%m-%dT%H:%M:%S.000Z", gmtime ( time - 1200);
 my $endTime = strftime "%Y-%m-%dT%H:%M:%S.000Z", gmtime;
 
-my $url = "https://$Hostname/rest/appliance/monitoring/query?item.interval=MINUTES5&item.function=MAX&item.start_time=$startTime&item.end_time=$endTime&item.names.1=cpu.util";
+my $url = "https://$Hostname/rest/appliance/monitoring/query?item.interval=MINUTES5&item.function=AVG&item.start_time=$startTime&item.end_time=$endTime&item.names.1=mem.usage";
 
 my $client = REST::Client->new();
 $client->addHeader('vmware-api-session-id' => $token);
@@ -69,16 +69,16 @@ my $res = decode_json($client->responseContent);
 
 my $value = $res->{'value'};
 
-my $cpu_percent = @$value[0]->{'data'}[0];
-$cpu_percent = sprintf("%.2f", $cpu_percent);
+my $memory_percent = @$value[0]->{'data'}[0];
+$memory_percent = sprintf("%.2f", $memory_percent);
 
-if($cpu_percent > $Critical){
-	print "CRITICAL: CPU Usage $cpu_percent %\n";
+if($memory_percent > $Critical){
+	print "CRITICAL: Memory Usage $memory_percent %\n";
 	exit 2;
-} elsif($cpu_percent > $Warning){
-	print "WARNING: CPU Usage $cpu_percent %\n";
+} elsif($memory_percent > $Warning){
+	print "WARNING: Memory Usage $memory_percent %\n";
 	exit 1;
 } else {
-	print "OK: CPU Usage $cpu_percent %\n";
+	print "OK: Memory Usage $memory_percent %\n";
 	exit 0;
 }
