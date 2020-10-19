@@ -66,6 +66,8 @@ my $client = REST::Client->new();
 $client->addHeader('vmware-api-session-id' => $token);
 $client->GET($url);
 
+print Dumper($client);
+
 my $res = decode_json($client->responseContent);
 
 my $value = $res->{'value'};

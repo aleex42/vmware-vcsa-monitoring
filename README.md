@@ -13,6 +13,17 @@ Still in development, but usable :-)
 * check_vcsa_services.pl: Services Running State
 * check_vcsa_storage.pl: Storage Usage
 
+# Requirements
+
+Under Debian Linux, you need to install:
+
+* librest-client-perl
+* libcrypt-ssleay-perl
+* libjson-perl
+
+And enable "Bash Shell Access" on the vCenter Appliance
+
+
 # Examples
 
 ![Nagios](https://github.com/aleex42/vmware-vcsa-monitoring/blob/master/examples/nagios.png)
